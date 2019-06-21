@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 
 export default function App() {
-  const operations = ['D', '+', '-', '*', '/'];
+  const operations = ['DEL', '+', '-', '*', '/'];
   const [resultText, setResultText] = useState('');
   const [calculationText, setCalculationText] = useState('');
 
@@ -19,7 +19,7 @@ export default function App() {
 
   const operate = (op) => {
     switch (op) {
-      case 'D':
+      case 'DEL':
         setResultText(resultText.substr(0, resultText.length - 1));
         setCalculationText('');
         break;
@@ -38,7 +38,7 @@ export default function App() {
   }
 
   let rows = [];
-  let nums = [[1, 2, 3], [4, 5, 6], [7, 8, 9], ['.', 0, '=']];
+  let nums = [[7, 8, 9], [4, 5, 6], [1, 2, 3], ['.', 0, '=']];
   for (let i = 0; i < 4; i++) {
     let row = [];
     for (let j = 0; j < 3; j++) {
@@ -50,14 +50,14 @@ export default function App() {
         </TouchableOpacity>
       );
     }
-    rows.push(<View style={styles.row}>{row}</View>);
+    rows.push(<View key={i} style={styles.row}>{row}</View>);
   }
 
 
   let ops = [];
   for (let i = 0; i < operations.length; i++) {
     ops.push(
-      <TouchableOpacity
+      <TouchableOpacity key={operations[i]}
         onPress={() => operate(operations[i])}
         style={styles.btn}>
         <Text style={[styles.btntext, styles.white]}>{operations[i]}</Text>
@@ -94,7 +94,8 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   btntext: {
-    fontSize: 30
+    fontSize: 30,
+    color: 'white'
   },
   resultText: {
     fontSize: 30,
@@ -134,12 +135,12 @@ const styles = StyleSheet.create({
   },
   numbers: {
     flex: 3,
-    backgroundColor: 'yellow'
+    backgroundColor: '#434343'
   },
   operations: {
     flex: 1,
     justifyContent: 'space-around',
     alignItems: 'stretch',
-    backgroundColor: 'black'
+    backgroundColor: '#636363'
   }
 });
